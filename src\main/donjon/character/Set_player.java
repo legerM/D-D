@@ -1,24 +1,44 @@
 package donjon.character;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
+//import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+ *
+ * @author mickaell
+ *@
+ */
 public class Set_player{
-	private List<Wizard> select_wizard = new ArrayList<Wizard>();	
-	private List<Warrior> select_warrior = new ArrayList<Warrior>();
-	//TODO mettre dans une seule liste de character 
+	Map<String, List<Character>> character = new HashMap<>();
+
+	boolean mapIsObject = character instanceof HashMap;
+	//	HashMap<Wizard,Warrior> character =new HashMap<Wizard,Warrior>();
+	//	private ArrayList<Character>character = new ArrayList<Character>();
+	//	private List<Character> select_wizard =character.subList(0,6);
+	//	private List<Character> select_warrior = character.subList(7, 12);
+	////	private List<Wizard> select_wizard = new ArrayList<Wizard>();	
+	////	private List<Warrior> select_warrior = new ArrayList<Warrior>();
+	//	//TODO mettre dans une seule liste de character 
+
 	private Scanner sc = new Scanner(System.in);
 
 	public void set_player_character() {
+		startGame();
 
+	}
+	private void startGame() {
 		char choiceUser=0;
 		//        /-------------------Demande	de choix entre les classes des personnages--------------\	
 
 		while (choiceUser != 'q') {
-			System.out.println("Veuillez choisir 1 pour le Guerrier ou 2 pour le Mage, l pour lister les personnages ou q pour quitter ");
+			System.out.println("(C)réation de héro \n(M)odifier un Personnage \n(S)upprimer un personnage \n(L)ister les personnages \n(Q)uitter le jeu \n ");
 
 			choiceUser = sc.next().charAt(0);
 			sc.nextLine();
@@ -28,6 +48,24 @@ public class Set_player{
 				System.exit(0);
 			}
 
+			//			/-----------------appel des fonction d'initialisation de personnages pour le guerrier ou le mage----------------------\
+			if (choiceUser == 'c') {
+				while(choiceUser != '1' && choiceUser != '2') {
+					System.out.println("Veuillez choisir 1 pour le Guerrier ou 2 pour le Mage ou (Q)uitter et revenir au menu principal ");
+					choiceUser = sc.next().charAt(0);
+					sc.nextLine();
+					if (choiceUser == '1') {
+						createWarrior();	
+					}
+
+					else if (choiceUser == '2') {
+						createWizard();
+					}
+					if (choiceUser == 'q') {
+						startGame();
+					}
+				}
+			}
 			//              /-------------------------------Affichage des personnages en mémoire--------------------------\	
 
 			else if (choiceUser == 'l') {
@@ -36,31 +74,22 @@ public class Set_player{
 			}
 
 			//               /------------------------ verification de la bonne entrée utilisateur -----------------------\		
+			//			else if 
+			//			while(choiceUser != '1' && choiceUser != '2') {
+			//				System.out.println("Veuillez choisir 1 pour le Guerrier ou 2 pour le Mage, l pour lister les personnages ou q pour quitter");
+			//				choiceUser = sc.next().charAt(0);
+			//				sc.nextLine();
+			//				if (choiceUser == 'q') {
+			//					System.exit(0);
+			//				}
+			//				else if (choiceUser == 'l') {
+			//					champ_listing();
+			//				}
+			//			}
 
-			while(choiceUser != '1' && choiceUser != '2') {
-				System.out.println("Veuillez choisir 1 pour le Guerrier ou 2 pour le Mage, l pour lister les personnages ou q pour quitter");
-				choiceUser = sc.next().charAt(0);
-				sc.nextLine();
-				if (choiceUser == 'q') {
-					System.exit(0);
-				}
-				else if (choiceUser == 'l') {
-					champ_listing();
-				}
-			}
 
 
-			//			/-----------------appel des fonction d'initialisation de personnages pour le guerrier ou le mage----------------------\
-
-			if (choiceUser == '1') {
-				createWarrior();	
-			}
-
-			else if (choiceUser == '2') {
-				createWizard();
-			}
 		}
-
 	}
 
 
@@ -71,28 +100,30 @@ public class Set_player{
 		System.out.println("quelle classe de personnage voulez vous ? tapez 1 pour warrior ou 2 pour mage " );
 		int choice = sc.nextInt();
 		if(choice == 1) {
-			if (select_warrior.isEmpty()) {
-				System.out.println("il n'y pas encore de personnages ! \n ");
+			if (character.equals (null)) {
+				System.out.println("il n'y pas encore de personnages ! Veuillez en créer un ! \n ");
+				startGame();
 			}
 			else {
-				for (int i =0 ; i < select_warrior.size();i++) {
-					System.out.println(select_warrior.get(i));
+				for (int i = 0 ;i<character.size();i++) {
+					character.get("guerrier");
+					System.out.println("Key "+i+character.get(i));
 				}
 			}
 		}
 
-		else if (choice == 2) {
-			if (select_wizard.isEmpty()) {
-				System.out.println("il n'y pas encore de personnages ! \n ");
-			}
-			else {
-				for (int i =0 ; i < select_wizard.size();i++)
-					System.out.println(select_wizard.get(i));
-			}	
-		}
+		//		else if (choice == 2) {
+		//			if (character.isEmpty()) {
+		//				System.out.println("il n'y pas encore de personnages !Veuillez en créer un  \n ");
+		//				startGame();
+		//			}
+		//			else {
+		//				for (Wizard i : character.keySet())
+		//					System.out.println("key"+i+character.get(i));
+		//			}
+		//		}
+
 	}
-
-
 
 	private void changeStatPlayer(Character hero) {
 		String setChoice;
@@ -136,7 +167,7 @@ public class Set_player{
 
 	private int askForstats(String question,int stat,int statMin,int statMax) {
 		while(true) {
-			
+
 			System.out.println(question);
 			try {
 				stat = sc.nextInt();
@@ -207,10 +238,11 @@ public class Set_player{
 		String answer = askForString("voulez-vous modifier votre personnage ? ");
 		if (answer.contentEquals("oui")) {
 			changeStatPlayer(champion);
+			character.put("Mage", new ArrayList<>());
 		}
 		if (answer.contentEquals("non")) {
 			System.out.println("sauvegarde de votre Hero");
-			select_wizard.add(champion);
+			character.put("Mage", new ArrayList<>());
 		}
 	}
 
@@ -241,10 +273,11 @@ public class Set_player{
 		String answer = askForString("voulez-vous modifier votre personnage ? ");
 		if (answer.contentEquals("oui")) {
 			changeStatPlayer(champion);
+			character.put("guerrier", new ArrayList<>());
 		}
 		if (answer.contentEquals("non")) {
 			System.out.println("sauvegarde de votre Hero");
-			select_warrior.add(champion);
+			character.put("guerrier", new ArrayList<>());
 		}
 
 	}

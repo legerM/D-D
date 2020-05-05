@@ -19,14 +19,7 @@ public class Character{
 		this.shieldDmgs=shieldDmgs;
 		}
 
-	public String toString() {
-		return " \n Nom du Héro  " + this.name +
-				" HP : " + this.lifePoint +
-				" PP : " + this.powerPoint ;
-	}
 
-
-	
 	
 	
 	// Getter 
@@ -57,7 +50,6 @@ public class Character{
 
 	public void setName(String newName) {
 		this.name = newName;
-
 	}
 
 	public void setLifePoint(int newLifePoint) {
@@ -81,5 +73,11 @@ public class Character{
 	}
 	public void setShieldDmgs(int newShieldDmgs) {
 		this.shieldDmgs = newShieldDmgs;
+	}
+	
+	public String toString() {
+		return " \n Nom du Héro  " + this.name +
+				" HP : " + this.lifePoint +
+				" PP : " + this.powerPoint ;
 	}
 }
