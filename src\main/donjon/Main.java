@@ -11,8 +11,8 @@ public class Main{
 
 	
 	public static void main(String[] args){ 
-	Set_player Game = new Set_player();
-	Game.set_player_character();
+	Set_player game = new Set_player();
+	game.set_player_character();
 	
 	}
 
