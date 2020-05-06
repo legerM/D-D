@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"donjon.character","c":"Set_player","l":"set_player_character()"},{"p":"donjon.character","c":"Set_player","l":"Set_player()","url":"%3Cinit%3E()"}]
